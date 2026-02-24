@@ -36,3 +36,21 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "it_ticket_portal_
         }
     }
 }
+
+# Upload index.html to S3 Bucket 
+
+resource "aws_s3_object" "index" {
+  bucket       = aws_s3_bucket.it_ticket_portal.id
+  key          = "index.html"
+  source       = "s3_frontend/index.html"
+  content_type = "text/html"
+}
+
+# Upload error.html to S3 Bucket 
+
+resource "aws_s3_object" "error" {
+  bucket       = aws_s3_bucket.it_ticket_portal.id
+  key          = "error.html"
+  source       = "s3_frontend/error.html"
+  content_type = "text/html"
+}
