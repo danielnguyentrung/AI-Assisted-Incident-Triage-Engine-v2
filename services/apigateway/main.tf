@@ -3,6 +3,13 @@
 resource "aws_apigatewayv2_api" "ticket_api" {
     name = "ticket-api"
     protocol_type = "HTTP"
+  
+  cors_configuration {
+    allow_origins = ["https://d2mt240u469po7.cloudfront.net"]
+    allow_headers = ["*"]
+    allow_methods = ["POST", "OPTIONS"]
+    max_age = 3600 
+  }
 }
 
 # API Gateway integration with Ingress Lambda
@@ -23,19 +30,11 @@ resource "aws_apigatewayv2_route" "post_ticket" {
   target = "integrations/${aws_apigatewayv2_integration.ingress_lambda_integration.id}"
 }
 
-# API Gateway OPTIONS /tickets route (CORS)
-
-resource "aws_apigatewayv2_route" "options_tickets" {
-  api_id = aws_apigatewayv2_api.ticket_api.id
-  route_key = "OPTIONS /tickets"
-  target = "integrations/${aws_apigatewayv2_integration.ingress_lambda_integration.id}"
-}
-
 # API Gateway Auto Deployment Stage 
 
 resource "aws_apigatewayv2_stage" "default" {
   api_id = aws_apigatewayv2_api.ticket_api.id
-  name = "default" 
+  name = "$default" 
   auto_deploy = true
 }
 

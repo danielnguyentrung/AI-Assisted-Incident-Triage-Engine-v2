@@ -4,7 +4,7 @@ resource "aws_lambda_function" "ingress_lambda" {
 function_name = "ingress-lambda"
 
 runtime = "python3.12"
-handler = "ingress_lambda.handler"
+handler = "ingress_lambda.ingress_lambda.lambda_handler"
 
 role = var.ingress_lambda_iam_role_arn
 
@@ -15,7 +15,7 @@ timeout = 10
 
 environment {
     variables = {
-        SQS_QUEUE_URL = var.sqs_ticket_queue_url
+        QUEUE_URL = var.sqs_ticket_queue_url
     }
   }
 }
@@ -26,7 +26,7 @@ resource "aws_lambda_function" "ticket_processor_lambda" {
 function_name = "ticket-processor-lambda"
 
 runtime ="python3.12"
-handler = "ticket_processor_lambda.handler"
+handler = "ticket_processor_lambda.ticket_processor_lambda.lambda_handler"
 
 role = var.tpl_lambda_iam_role_arn
 
@@ -49,7 +49,7 @@ resource "aws_lambda_function" "stale_ticket_checker_lambda" {
 function_name = "stale-ticket-checker-lambda"
 
 runtime = "python3.12"
-handler = "stale_ticket_checker_lambda.handler"
+handler = "stale_ticket_checker_lambda.stale_ticket_checker_lambda.lambda_handler"
 
 role = var.stc_lambda_iam_role_arn
 
