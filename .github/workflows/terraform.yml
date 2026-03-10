@@ -1,32 +1,39 @@
-name: Terraform CI 
+name: Terraform CI
 
-on: 
+on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-    terraform: 
-        runs-on: ubuntu-latest
+  terraform:
+    runs-on: ubuntu-latest
 
-        steps: 
-            - name: Checkout repo
-              uses: actions/checkout@v4
+    env:
+      TF_VAR_sender_email: ${{ secrets.SENDER_EMAIL }}
+      TF_VAR_it_email: ${{ secrets.IT_EMAIL }}
+      TF_VAR_ticket_table_name: ${{ secrets.TICKET_TABLE_NAME }}
+      TF_VAR_environment: ${{ secrets.ENVIRONMENT }}
+      TF_VAR_aws_region: ${{ secrets.AWS_REGION }}
 
-            - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v4
-              with:
-                terraform_version: 1.8.5
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-            - name: Terraform Format Check
-              run: terraform fmt -check -recursive 
-              
-            - name: Terraform Init 
-              run: terraform init -input=false
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.8.5
 
-            - name: Terraform Validate
-              run: terraform validate 
-              
-            - name: Terraform Plan
-              run: terraform plan -input=false
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
