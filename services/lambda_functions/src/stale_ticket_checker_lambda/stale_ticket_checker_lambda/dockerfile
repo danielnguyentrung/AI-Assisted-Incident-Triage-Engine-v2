@@ -1,0 +1,5 @@
+FROM public.ecr.aws/lambda/python:3.12
+
+COPY stale_ticket_checker_lambda.py . 
+
+CMD ["stale_ticket_checker_lambda.lambda_handler"]

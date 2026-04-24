@@ -2,14 +2,10 @@
 
 resource "aws_lambda_function" "ingress_lambda" {
   function_name = "ingress-lambda"
-
-  runtime = "python3.12"
-  handler = "ingress_lambda.ingress_lambda.lambda_handler"
-
   role = var.ingress_lambda_iam_role_arn
 
-  filename         = "${path.module}/src/ingress_lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/src/ingress_lambda.zip")
+  package_type = "Image"
+  image_uri = "${var.ingress_lambda_image_uri}:${var.ingress_lambda_image_tag}"
 
   timeout = 10
 
@@ -24,14 +20,10 @@ resource "aws_lambda_function" "ingress_lambda" {
 
 resource "aws_lambda_function" "ticket_processor_lambda" {
   function_name = "ticket-processor-lambda"
-
-  runtime = "python3.12"
-  handler = "ticket_processor_lambda.ticket_processor_lambda.lambda_handler"
-
   role = var.tpl_lambda_iam_role_arn
 
-  filename         = "${path.module}/src/ticket_processor_lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/src/ticket_processor_lambda.zip")
+  package_type = "Image"
+  image_uri = "${var.ticket_processor_lambda_image_uri}:${var.ticket_processor_lambda_image_tag}"
 
   timeout = 30
 
@@ -48,14 +40,10 @@ resource "aws_lambda_function" "ticket_processor_lambda" {
 
 resource "aws_lambda_function" "stale_ticket_checker_lambda" {
   function_name = "stale-ticket-checker-lambda"
-
-  runtime = "python3.12"
-  handler = "stale_ticket_checker_lambda.stale_ticket_checker_lambda.lambda_handler"
-
   role = var.stc_lambda_iam_role_arn
 
-  filename         = "${path.module}/src/stale_ticket_checker_lambda.zip"
-  source_code_hash = filebase64sha256("${path.module}/src/stale_ticket_checker_lambda.zip")
+  package_type = "Image"
+  image_uri = "${var.stale_ticket_checker_lambda_image_uri}:${var.stale_ticket_checker_lambda_image_tag}"
 
   timeout = 10
 

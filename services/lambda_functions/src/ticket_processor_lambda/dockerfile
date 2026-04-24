@@ -1,0 +1,5 @@
+FROM public.ecr.aws/lambda/python:3.12
+
+COPY ticket_processor_lambda.py .
+
+CMD ["ticket_processor_lambda.lambda_handler"]

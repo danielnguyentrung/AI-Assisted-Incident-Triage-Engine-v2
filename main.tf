@@ -37,6 +37,10 @@ module "dynamodb" {
   source = "./services/dynamodb"
 }
 
+module "ecr" {
+  source = "./services/ecr"
+}
+
 module "eventbridge" {
   source                          = "./services/eventbridge"
   stale_ticket_checker_lambda_arn = module.lambda_functions.stale_ticket_checker_lambda_arn
@@ -58,6 +62,12 @@ module "lambda_functions" {
   ticket_table_name           = module.dynamodb.ticket_table_name
   ses_sender_email            = var.sender_email
   it_email                    = var.it_email
+  ingress_lambda_image_uri    = module.ecr.ingress_lambda_repo
+  ingress_lambda_image_tag    = "v3"
+  ticket_processor_lambda_image_uri = module.ecr.ticket_processor_lambda_repo
+  ticket_processor_lambda_image_tag = "v1"
+  stale_ticket_checker_lambda_image_uri = module.ecr.stale_ticket_lambda_repo
+  stale_ticket_checker_lambda_image_tag = "v1"
 }
 
 module "s3_bucket" {
