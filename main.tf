@@ -54,18 +54,18 @@ module "sqs" {
 }
 
 module "lambda_functions" {
-  source                      = "./services/lambda_functions"
-  ingress_lambda_iam_role_arn = module.iam_roles.ingress_lambda_iam_role_arn
-  tpl_lambda_iam_role_arn     = module.iam_roles.tpl_lambda_iam_role_arn
-  stc_lambda_iam_role_arn     = module.iam_roles.stc_lambda_iam_role_arn
-  sqs_ticket_queue_url        = module.sqs.sqs_ticket_queue_url
-  ticket_table_name           = module.dynamodb.ticket_table_name
-  ses_sender_email            = var.sender_email
-  it_email                    = var.it_email
-  ingress_lambda_image_uri    = module.ecr.ingress_lambda_repo
-  ingress_lambda_image_tag    = "v3"
-  ticket_processor_lambda_image_uri = module.ecr.ticket_processor_lambda_repo
-  ticket_processor_lambda_image_tag = "v1"
+  source                                = "./services/lambda_functions"
+  ingress_lambda_iam_role_arn           = module.iam_roles.ingress_lambda_iam_role_arn
+  tpl_lambda_iam_role_arn               = module.iam_roles.tpl_lambda_iam_role_arn
+  stc_lambda_iam_role_arn               = module.iam_roles.stc_lambda_iam_role_arn
+  sqs_ticket_queue_url                  = module.sqs.sqs_ticket_queue_url
+  ticket_table_name                     = module.dynamodb.ticket_table_name
+  ses_sender_email                      = var.sender_email
+  it_email                              = var.it_email
+  ingress_lambda_image_uri              = module.ecr.ingress_lambda_repo
+  ingress_lambda_image_tag              = "v3"
+  ticket_processor_lambda_image_uri     = module.ecr.ticket_processor_lambda_repo
+  ticket_processor_lambda_image_tag     = "v1"
   stale_ticket_checker_lambda_image_uri = module.ecr.stale_ticket_lambda_repo
   stale_ticket_checker_lambda_image_tag = "v1"
 }

@@ -40,31 +40,31 @@ variable "it_email" {
 }
 
 variable "ingress_lambda_image_uri" {
-  type = string
+  type        = string
   description = "URI of the container image for the Ingress Lambda Function"
 }
 
 variable "ingress_lambda_image_tag" {
-  type = string 
+  type        = string
   description = "image version for ingress lambda"
 }
 
 variable "ticket_processor_lambda_image_uri" {
-  type = string
+  type        = string
   description = "URI of the container image for the Ticket Processor Lambda Function"
 }
 
 variable "ticket_processor_lambda_image_tag" {
-  type = string 
+  type        = string
   description = "image version for ticket processor lambda"
 }
 
 variable "stale_ticket_checker_lambda_image_uri" {
-  type = string
+  type        = string
   description = "URI of the container image for the Stale Ticket Checker Lambda Function"
 }
 
 variable "stale_ticket_checker_lambda_image_tag" {
-  type = string
+  type        = string
   description = "URI of the container image for the Stale Ticket Checker Lambda Function"
 }

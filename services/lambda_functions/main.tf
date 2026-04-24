@@ -2,10 +2,10 @@
 
 resource "aws_lambda_function" "ingress_lambda" {
   function_name = "ingress-lambda"
-  role = var.ingress_lambda_iam_role_arn
+  role          = var.ingress_lambda_iam_role_arn
 
   package_type = "Image"
-  image_uri = "${var.ingress_lambda_image_uri}:${var.ingress_lambda_image_tag}"
+  image_uri    = "${var.ingress_lambda_image_uri}:${var.ingress_lambda_image_tag}"
 
   timeout = 10
 
@@ -20,10 +20,10 @@ resource "aws_lambda_function" "ingress_lambda" {
 
 resource "aws_lambda_function" "ticket_processor_lambda" {
   function_name = "ticket-processor-lambda"
-  role = var.tpl_lambda_iam_role_arn
+  role          = var.tpl_lambda_iam_role_arn
 
   package_type = "Image"
-  image_uri = "${var.ticket_processor_lambda_image_uri}:${var.ticket_processor_lambda_image_tag}"
+  image_uri    = "${var.ticket_processor_lambda_image_uri}:${var.ticket_processor_lambda_image_tag}"
 
   timeout = 30
 
@@ -40,10 +40,10 @@ resource "aws_lambda_function" "ticket_processor_lambda" {
 
 resource "aws_lambda_function" "stale_ticket_checker_lambda" {
   function_name = "stale-ticket-checker-lambda"
-  role = var.stc_lambda_iam_role_arn
+  role          = var.stc_lambda_iam_role_arn
 
   package_type = "Image"
-  image_uri = "${var.stale_ticket_checker_lambda_image_uri}:${var.stale_ticket_checker_lambda_image_tag}"
+  image_uri    = "${var.stale_ticket_checker_lambda_image_uri}:${var.stale_ticket_checker_lambda_image_tag}"
 
   timeout = 10
 
